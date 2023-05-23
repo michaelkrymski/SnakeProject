@@ -8,9 +8,13 @@ public class Fruit : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        other.GetComponent<GameManager>().IncrementScore(1);
-        CreateRandomFruit();
-        Destroy(gameObject);
+        if(other.tag == "Player")
+        {
+            other.GetComponent<GameManager>().IncrementScore(1);
+            other.GetComponent<SnakeSegmentManager>().AddSegment();
+            CreateRandomFruit();
+            Destroy(gameObject);
+        }
     }
 
     private void CreateRandomFruit()

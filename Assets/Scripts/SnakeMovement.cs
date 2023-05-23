@@ -45,7 +45,7 @@ public class SnakeMovement : MonoBehaviour
             verticalInput = rawVInput;
         }
     }
-
+    
     private void FixedUpdate()
     {   
         transform.position = transform.position + new Vector3(horizontalInput * speed, verticalInput * speed, 0);
