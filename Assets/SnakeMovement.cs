@@ -6,8 +6,8 @@ public class SnakeMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] float speed = 1f;
-    private float horizontalInput;
-    private float verticalInput;
+    public float horizontalInput;
+    public float verticalInput;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +25,14 @@ public class SnakeMovement : MonoBehaviour
             horizontalInput = 1;
             verticalInput = 0;
         }
+        else if(rawHInput == horizontalInput * -1)
+        {
+            return;
+        }
+        else if(rawVInput == verticalInput * -1)
+        {
+            return;
+        }
         else if(rawHInput != 0 && rawVInput == 0)
         {
             horizontalInput = rawHInput;
@@ -35,11 +43,11 @@ public class SnakeMovement : MonoBehaviour
             horizontalInput = 0;
             verticalInput = rawVInput;
         }
-        else if(rawHInput != 0 && rawVInput != 0)
-        {
-            horizontalInput = rawHInput;
-            verticalInput = 0;
-        }
+        // else if(rawHInput != 0 && rawVInput != 0)
+        // {
+        //     horizontalInput = rawHInput;
+        //     verticalInput = 0;
+        // }
     }
 
     void FixedUpdate()
