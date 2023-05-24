@@ -11,7 +11,7 @@ public class Fruit : MonoBehaviour
         if(other.tag == "Player")
         {
             other.GetComponent<GameManager>().IncrementScore(1);
-            other.GetComponent<SnakeSegmentManager>().AddSegment();
+            other.transform.parent.GetComponent<SnakeManager>().AddBodyParts();
             CreateRandomFruit();
             Destroy(gameObject);
         }
@@ -19,8 +19,8 @@ public class Fruit : MonoBehaviour
 
     private void CreateRandomFruit()
     {
-        float x = Random.Range(-23.5f, 23.5f);
-        float y = Random.Range(-11.5f, 11.5f);
+        float x = Random.Range(-21.5f, 21.5f);
+        float y = Random.Range(-10.5f, 10.5f);
         GameObject newFruit = Instantiate(fruit, new Vector3(x, y, 0), Quaternion.identity);
         newFruit.GetComponent<Fruit>().fruit = fruit;
     }

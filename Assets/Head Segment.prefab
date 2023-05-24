@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 7371327157454301740}
   - component: {fileID: 6617985504150571280}
   - component: {fileID: 5064689248117115287}
-  - component: {fileID: 647267962561832800}
+  - component: {fileID: 9046193823116861031}
   m_Layer: 0
-  m_Name: Snake Segment
-  m_TagString: Segment
+  m_Name: Head Segment
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,7 +115,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0013299286, y: -0.014629036}
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.46537727, y: 0.4494185}
   m_EdgeRadius: 0
---- !u!114 &647267962561832800
+--- !u!114 &9046193823116861031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,6 +140,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6660265637109791539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82e39e9e4c2d846b99600baff73381eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 102f576ccb6f44a459a9ee660e3ab172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0

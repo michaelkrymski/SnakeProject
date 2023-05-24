@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class SnakeSegmentManager : MonoBehaviour
 {
-    private List<Transform> segments = new List<Transform>();
+    private List<GameObject> segments = new List<GameObject>();
     [SerializeField] GameObject segmentPrefab;
 
     private void Start()
     {
-        segments.Add(transform);
+        //segments.Add(gameObject);
     }
     
     public void AddSegment()
     {
         GameObject newSegment = Instantiate(segmentPrefab, transform.position, Quaternion.identity);
-        segments.Add(newSegment.transform);
+        segments.Add(newSegment);
         UpdatePositions();
     }
 
     private void UpdatePositions()
     {
-        for(int i = segments.Count - 1; i > 0; i--)
-        {
-            segments[i].position = segments[i - 1].position;
-        }
-        segments[0].position = transform.position;
+        
     }
 
     private void FixedUpdate()
