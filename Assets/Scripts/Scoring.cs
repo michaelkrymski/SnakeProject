@@ -19,6 +19,7 @@ public class Scoring : MonoBehaviour
         scoreText.text = "Score: " + currentScore;
         if(currentScore == maxScore)
         {
+            PlayerPrefs.SetInt("balance", currentScore + PlayerPrefs.GetInt("balance"));
             SceneManager.LoadScene(0);
         }
     }
