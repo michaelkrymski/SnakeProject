@@ -18,7 +18,6 @@ public class TycoonManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Retrieving balance from storage");
             SetBalance(RetrieveBalance("balance"));
         }
     }
