@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Segments : MonoBehaviour
 {
@@ -21,8 +22,8 @@ public class Segments : MonoBehaviour
         
         if(other.tag == "Player")
         {
-            Debug.Log("help");
-            Destroy(other);
+            
+            SceneManager.LoadScene(0); 
 
         }  
     }
