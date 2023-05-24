@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TycoonManager : MonoBehaviour
 {
     [SerializeField] private int balance;
     [SerializeField] string storageKey = "balance";
+    [SerializeField] TextMeshProUGUI BalanceText;
+    [SerializeField] TextMeshProUGUI AppleTree;
 
     // Start is called before the first frame update
     void Start()
@@ -44,10 +47,17 @@ public class TycoonManager : MonoBehaviour
     public void SetBalance(int newBalance)
     {
         balance = newBalance;
+        UpdateUI();
     }    
 
     public void AddBalance(int amount)
     {
         balance += amount;
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        BalanceText.text = "Balance: " + balance;
     }
 }
