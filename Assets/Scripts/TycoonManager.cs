@@ -6,20 +6,20 @@ using TMPro;
 public class TycoonManager : MonoBehaviour
 {
     [SerializeField] private int balance;
-    [SerializeField] string storageKey = "balance";
     [SerializeField] TextMeshProUGUI BalanceText;
     [SerializeField] TextMeshProUGUI AppleTree;
 
     // Start is called before the first frame update
     void Start()
     {
-        if(RetrieveBalance(storageKey) == 0)
+        if(RetrieveBalance("balance") == 0)
         {
             balance = 0;
         }
         else
         {
-            balance = RetrieveBalance(storageKey);
+            Debug.Log("Retrieving balance from storage");
+            SetBalance(RetrieveBalance("balance"));
         }
     }
 

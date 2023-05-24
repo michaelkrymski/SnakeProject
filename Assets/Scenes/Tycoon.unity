@@ -154,6 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   balance: 0
   storageKey: balance
+  BalanceText: {fileID: 0}
+  AppleTree: {fileID: 0}
 --- !u!4 &117434943
 Transform:
   m_ObjectHideFlags: 0
@@ -1149,5 +1151,5 @@ Transform:
   m_Children:
   - {fileID: 1501459758}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
