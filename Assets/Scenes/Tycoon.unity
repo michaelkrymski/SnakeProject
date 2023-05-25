@@ -157,10 +157,18 @@ MonoBehaviour:
   BucketCost: {fileID: 1261834321}
   AppleTreeText: {fileID: 325094298}
   AppleTreeCost: {fileID: 870808320}
+  MarketText: {fileID: 395212998}
+  MarketCost: {fileID: 1063445930}
+  FactoryText: {fileID: 1444552470}
+  FactoryCost: {fileID: 422981216}
   bucketValue: 1
   bucketCost: 10
   treeValue: 3
   treeCost: 10
+  marketValue: 15
+  marketCost: 1000
+  factoryValue: 75
+  factoryCost: 10000
 --- !u!4 &117434943
 Transform:
   m_ObjectHideFlags: 0
