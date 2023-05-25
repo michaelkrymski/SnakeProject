@@ -19,21 +19,22 @@ public class TycoonManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI MarketCost;
     [SerializeField] TextMeshProUGUI FactoryText;
     [SerializeField] TextMeshProUGUI FactoryCost;
+    [SerializeField] TextMeshProUGUI IncomePerSecond;
 
     private int numBuckets;
     [SerializeField] int bucketValue = 1;
     [SerializeField] float bucketCost = 10;
 
     private int numTrees;
-    [SerializeField] int treeValue = 3;
+    [SerializeField] int treeValue = 8;
     [SerializeField] float treeCost = 100;
 
     private int numMarkets;
-    [SerializeField] int marketValue = 15;
+    [SerializeField] int marketValue = 40;
     [SerializeField] float marketCost = 1000;
 
     private int numFactories;
-    [SerializeField] int factoryValue = 75;
+    [SerializeField] int factoryValue = 400;
     [SerializeField] float factoryCost = 10000;
 
     void Start()
@@ -52,6 +53,7 @@ public class TycoonManager : MonoBehaviour
             PlayerPrefs.SetFloat("marketCost", marketCost);
             PlayerPrefs.SetInt("numFactories", 0);
             PlayerPrefs.SetFloat("factoryCost", factoryCost);
+            UpdateUI();
         }
         else
         {
@@ -143,6 +145,7 @@ public class TycoonManager : MonoBehaviour
         MarketCost.text = "Cost: " + marketCost;
         FactoryText.text = "Factories: " + numFactories;
         FactoryCost.text = "Cost: " + factoryCost;
+        IncomePerSecond.text = "Income Per Second: " + (numBuckets * bucketValue + numTrees * treeValue + numMarkets * marketValue + numFactories * factoryValue);
     }
 
     public void AddBucket()
@@ -153,7 +156,7 @@ public class TycoonManager : MonoBehaviour
         }
         ChangeBucketCount(1);
         ChangeBalance(-bucketCost);
-        ChangeSnakeMultiplier(2);
+        ChangeSnakeMultiplier(3);
         bucketCost = bucketCost * 1.5f;
         bucketCost = Mathf.Round(bucketCost * 100f) / 100f;
         StoreValue("bucketCost", bucketCost);
@@ -168,7 +171,7 @@ public class TycoonManager : MonoBehaviour
         }
         ChangeTreeCount(1);
         ChangeBalance(-treeCost);
-        ChangeSnakeMultiplier(5);
+        ChangeSnakeMultiplier(8);
         treeCost = treeCost * 1.5f;
         treeCost = Mathf.Round(treeCost * 100f) / 100f;
         StoreValue("treeCost", treeCost);
@@ -183,7 +186,7 @@ public class TycoonManager : MonoBehaviour
         }
         ChangeMarketCount(1);
         ChangeBalance(-marketCost);
-        ChangeSnakeMultiplier(10);
+        ChangeSnakeMultiplier(50);
         marketCost = marketCost * 1.5f;
         marketCost = Mathf.Round(marketCost * 100f) / 100f;
         StoreValue("marketCost", marketCost);
@@ -198,7 +201,7 @@ public class TycoonManager : MonoBehaviour
         }
         ChangeFactoryCount(1);
         ChangeBalance(-factoryCost);
-        ChangeSnakeMultiplier(20);
+        ChangeSnakeMultiplier(700);
         factoryCost = factoryCost * 1.5f;
         factoryCost = Mathf.Round(factoryCost * 100f) / 100f;
         StoreValue("factoryCost", factoryCost);
