@@ -12,10 +12,11 @@ public class Scoring : MonoBehaviour
     void Start()
     {
         currentScore = 0;
-        if(PlayerPrefs.GetInt("firstTime", 1) == 1)
+        if(PlayerPrefs.GetInt("dashTutorialRequired", 1) == 1)
         {
             boostInfo.color = new Color(boostInfo.color.r, boostInfo.color.g, boostInfo.color.b, 1);
-            StartCoroutine(Delay(5f));
+            StartCoroutine(Delay(3f));
+            PlayerPrefs.SetInt("dashTutorialRequired", 0);
         }
         else
         {
@@ -44,7 +45,7 @@ public class Scoring : MonoBehaviour
     public IEnumerator Delay(float time)
     {
         yield return new WaitForSeconds(time);
-        StartCoroutine(FadeTextToZeroAlpha(2f, boostInfo));
+        StartCoroutine(FadeTextToZeroAlpha(1.5f, boostInfo));
     }
 
     public IEnumerator FadeTextToZeroAlpha(float time, TextMeshProUGUI text)
