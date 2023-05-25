@@ -5,21 +5,38 @@ using TMPro;
 
 public class TycoonManager : MonoBehaviour
 {
-    [SerializeField] private int balance;
-    [SerializeField] TextMeshProUGUI BalanceText;
+    private int firstTime;
+
+    private int snakeMultiplier;
+
+    private float balance;
     [SerializeField] TextMeshProUGUI AppleTree;
+    [SerializeField] private TextMeshProUGUI BalanceText;
+
+    private int numTrees;
+    [SerializeField] int treeValue = 1;
+    [SerializeField] float treeCost = 10;
 
     // Start is called before the first frame update
     void Start()
     {
-        if(RetrieveBalance("balance") == 0)
+        firstTime = PlayerPrefs.GetInt("firstTime", 1);
+        if(firstTime == 1)
         {
-            balance = 0;
+            PlayerPrefs.SetInt("firstTime", 0);
+            PlayerPrefs.SetInt("multiplier", 1);
+            PlayerPrefs.SetFloat("balance", 0);
+            PlayerPrefs.SetInt("numTrees", 0);
         }
         else
         {
-            SetBalance(RetrieveBalance("balance"));
+            balance = RetrieveValue("balance");
+            numTrees = (int)RetrieveValue("numTrees");
+            snakeMultiplier = (int)RetrieveValue("numTrees");
+            StartCoroutine(AddSecondaryBalanceRoutine());
+            UpdateUI();
         }
+        Debug.Log(snakeMultiplier);
     }
 
     // Update is called once per frame
@@ -28,35 +45,78 @@ public class TycoonManager : MonoBehaviour
         
     }
 
-    public int GetBalance()
+    public float GetBalance()
     {
         return balance;
     }
 
-    public int RetrieveBalance(string storageKey)
+    public float RetrieveValue(string storageKey)
     {
-        return PlayerPrefs.GetInt(storageKey);
+        return PlayerPrefs.GetFloat(storageKey);
     }
 
-    public void StoreBalance(string storageKey)
+    public void StoreValue(string storageKey, float value)
     {
-        PlayerPrefs.SetInt(storageKey, balance);
+        PlayerPrefs.SetFloat(storageKey, value);
     }
 
-    public void SetBalance(int newBalance)
+    public void SetBalance(float newBalance)
     {
         balance = newBalance;
         UpdateUI();
     }    
 
-    public void AddBalance(int amount)
+    public void ChangeBalance(float amount)
     {
         balance += amount;
         UpdateUI();
+        StoreValue("balance", balance);
+    }
+
+    public void ChangeSnakeMultiplier(int amount)
+    {
+        snakeMultiplier += amount;
+        StoreValue("multiplier", snakeMultiplier);
+    }
+
+    public void ChangeTreeCount(int amount)
+    {
+        numTrees += amount;
+        UpdateUI();
+        StoreValue("numTrees", numTrees);
     }
 
     public void UpdateUI()
     {
         BalanceText.text = "Balance: " + balance;
+        //AppleTree.text = "Apple Trees: " + numTrees;
+    }
+
+    public void AddTree()
+    {
+        if(balance < treeCost)
+        {
+            return;
+        }
+        ChangeTreeCount(1);
+        ChangeBalance(-treeCost);
+        treeCost = treeCost * 1.5f;
+        //AppleTree.text = "Apple Trees: " + numTrees;
+    }
+
+    private void AddSecondaryBalance()
+    {
+        int secondaryBalance = 0;
+        secondaryBalance += numTrees * treeValue;
+        ChangeBalance(secondaryBalance);
+    }
+
+    private IEnumerator AddSecondaryBalanceRoutine()
+    {
+        while(true)
+        {
+            AddSecondaryBalance();
+            yield return new WaitForSeconds(1.0f);
+        }
     }
 }

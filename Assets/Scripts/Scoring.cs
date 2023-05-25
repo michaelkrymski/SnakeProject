@@ -15,11 +15,15 @@ public class Scoring : MonoBehaviour
     // Start is called before the first frame update
     public void UpdateScore(int value, int maxScore)
     {
+        value *= PlayerPrefs.GetInt("multiplier");
+        maxScore *= PlayerPrefs.GetInt("multiplier");
+        Debug.Log(PlayerPrefs.GetInt("multiplier"));
         currentScore += value;
         scoreText.text = "Score: " + currentScore;
-        if(currentScore == maxScore)
+
+        if(currentScore == (maxScore))
         {
-            PlayerPrefs.SetInt("balance", currentScore + PlayerPrefs.GetInt("balance"));
+            PlayerPrefs.SetFloat("balance", currentScore + PlayerPrefs.GetFloat("balance"));
             SceneManager.LoadScene(0);
         }
     }
