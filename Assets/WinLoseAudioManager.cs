@@ -9,11 +9,13 @@ public class WinLoseAudioManager : MonoBehaviour
 
     public void PlayWinSound()
     {
+        transform.parent.GetComponent<AudioSource>().Stop();
         winSound.Play();
     }
 
     public void PlayLoseSound()
     {
+        transform.parent.GetComponent<AudioSource>().Stop();
         loseSound.Play();
     }
 }

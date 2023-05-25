@@ -8,7 +8,7 @@ public class Barrier : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            StartCoroutine(other.gameObject.GetComponent<SnakeManager>().ExitGameAsLoss(3f));
+            StartCoroutine(other.transform.parent.GetComponent<SnakeManager>().ExitGameAsLoss(2f));
         }
     }
 }
