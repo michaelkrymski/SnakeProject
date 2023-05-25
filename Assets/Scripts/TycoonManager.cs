@@ -37,8 +37,11 @@ public class TycoonManager : MonoBehaviour
     [SerializeField] int factoryValue = 400;
     [SerializeField] float factoryCost = 10000;
 
+    private AudioSource buySound;
+
     void Start()
     {
+        buySound = GetComponent<AudioSource>();
         firstTime = PlayerPrefs.GetInt("firstTime", 1);
         if(firstTime == 1)
         {
@@ -161,6 +164,7 @@ public class TycoonManager : MonoBehaviour
         bucketCost = Mathf.Round(bucketCost * 100f) / 100f;
         StoreValue("bucketCost", bucketCost);
         UpdateUI();
+        buySound.Play();
     }
 
     public void AddTree()
@@ -176,6 +180,7 @@ public class TycoonManager : MonoBehaviour
         treeCost = Mathf.Round(treeCost * 100f) / 100f;
         StoreValue("treeCost", treeCost);
         UpdateUI();
+        buySound.Play();
     }
 
     public void AddMarket()
@@ -191,6 +196,7 @@ public class TycoonManager : MonoBehaviour
         marketCost = Mathf.Round(marketCost * 100f) / 100f;
         StoreValue("marketCost", marketCost);
         UpdateUI();
+        buySound.Play();
     }
 
     public void AddFactory()
@@ -206,6 +212,7 @@ public class TycoonManager : MonoBehaviour
         factoryCost = Mathf.Round(factoryCost * 100f) / 100f;
         StoreValue("factoryCost", factoryCost);
         UpdateUI();
+        buySound.Play();
     }
 
     private void AddSecondaryBalance()
