@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class SnakeManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    /*if(bodyParts.count>1)
-        {
-            for(int i = 1; i<bodyParts.Count; i++)
-            {
-                MarkerManager markM = bodyParts[i-1].GetComponent<MarkerManager>();
-                bodyParts[i].transform.position = markM.makerList[0].position;
-                bodyParts[i].transform.position = markM.makerList[0].position;
-                markM.markerList.RemoveAt(0);
-            }
-    */
-
     [SerializeField] float distanceBetween = .2f;
     [SerializeField] float speed = 280;
     [SerializeField] float turnSpeed = 180;
@@ -29,7 +17,6 @@ public class SnakeManager : MonoBehaviour
         CreateBodyParts();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         ManageSnakeBody();
@@ -59,7 +46,16 @@ public class SnakeManager : MonoBehaviour
 
     void SnakeMovement()
     {
-        snakeBody[0].GetComponent<Rigidbody2D>().velocity = snakeBody[0].transform.right * speed * Time.deltaTime;
+        float realSpeed = 0;
+        if(Input.GetKey(KeyCode.Space))
+        {
+            realSpeed = speed * 2;
+        }
+        else
+        {
+            realSpeed = speed;
+        }
+        snakeBody[0].GetComponent<Rigidbody2D>().velocity = snakeBody[0].transform.right * realSpeed * Time.deltaTime;
         if(Input.GetAxis("Horizontal") != 0)
         {
             snakeBody[0].transform.Rotate(new Vector3(0,0, -turnSpeed * Time.deltaTime * Input.GetAxis("Horizontal")));
@@ -122,5 +118,4 @@ public class SnakeManager : MonoBehaviour
     {
         bodyParts.Add(segment);
     }
-
 }

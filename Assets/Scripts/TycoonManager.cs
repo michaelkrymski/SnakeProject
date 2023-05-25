@@ -15,6 +15,10 @@ public class TycoonManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI BucketCost;
     [SerializeField] TextMeshProUGUI AppleTreeText;
     [SerializeField] TextMeshProUGUI AppleTreeCost;
+    [SerializeField] TextMeshProUGUI MarketText;
+    [SerializeField] TextMeshProUGUI MarketCost;
+    [SerializeField] TextMeshProUGUI FactoryText;
+    [SerializeField] TextMeshProUGUI FactoryCost;
 
     private int numBuckets;
     [SerializeField] int bucketValue = 1;
@@ -23,6 +27,14 @@ public class TycoonManager : MonoBehaviour
     private int numTrees;
     [SerializeField] int treeValue = 3;
     [SerializeField] float treeCost = 100;
+
+    private int numMarkets;
+    [SerializeField] int marketValue = 15;
+    [SerializeField] float marketCost = 1000;
+
+    private int numFactories;
+    [SerializeField] int factoryValue = 75;
+    [SerializeField] float factoryCost = 10000;
 
     void Start()
     {
@@ -33,9 +45,13 @@ public class TycoonManager : MonoBehaviour
             PlayerPrefs.SetFloat("balance", 0);
             PlayerPrefs.SetFloat("multiplier", 1);
             PlayerPrefs.SetInt("numBuckets", 0);
-            PlayerPrefs.SetFloat("bucketCost", 10);
+            PlayerPrefs.SetFloat("bucketCost", bucketCost);
             PlayerPrefs.SetInt("numTrees", 0);
-            PlayerPrefs.SetFloat("treeCost", 100);
+            PlayerPrefs.SetFloat("treeCost", treeCost);
+            PlayerPrefs.SetInt("numMarkets", 0);
+            PlayerPrefs.SetFloat("marketCost", marketCost);
+            PlayerPrefs.SetInt("numFactories", 0);
+            PlayerPrefs.SetFloat("factoryCost", factoryCost);
         }
         else
         {
@@ -45,9 +61,12 @@ public class TycoonManager : MonoBehaviour
             bucketCost = (int)RetrieveValue("bucketCost");
             numTrees = (int)RetrieveValue("numTrees");
             treeCost = RetrieveValue("treeCost");
+            numMarkets = (int)RetrieveValue("numMarkets");
+            marketCost = RetrieveValue("marketCost");
+            numFactories = (int)RetrieveValue("numFactories");
+            factoryCost = RetrieveValue("factoryCost");
             StartCoroutine(AddSecondaryBalanceRoutine());
             UpdateUI();
-            Debug.Log((int)RetrieveValue("treeCost"));
         }
     }
 
@@ -99,6 +118,20 @@ public class TycoonManager : MonoBehaviour
         StoreValue("numTrees", numTrees);
     }
 
+    public void ChangeMarketCount(int amount)
+    {
+        numMarkets += amount;
+        UpdateUI();
+        StoreValue("numMarkets", numMarkets);
+    }
+
+    public void ChangeFactoryCount(int amount)
+    {
+        numFactories += amount;
+        UpdateUI();
+        StoreValue("numFactories", numFactories);
+    }
+
     public void UpdateUI()
     {
         BalanceText.text = "Balance: " + balance;
@@ -106,6 +139,10 @@ public class TycoonManager : MonoBehaviour
         AppleTreeCost.text = "Cost: " + treeCost;
         BucketText.text = "Buckets: " + numBuckets;
         BucketCost.text = "Cost: " + bucketCost;
+        MarketText.text = "Markets: " + numMarkets;
+        MarketCost.text = "Cost: " + marketCost;
+        FactoryText.text = "Factories: " + numFactories;
+        FactoryCost.text = "Cost: " + factoryCost;
     }
 
     public void AddBucket()
@@ -138,11 +175,43 @@ public class TycoonManager : MonoBehaviour
         UpdateUI();
     }
 
+    public void AddMarket()
+    {
+        if(balance < marketCost)
+        {
+            return;
+        }
+        ChangeMarketCount(1);
+        ChangeBalance(-marketCost);
+        ChangeSnakeMultiplier(10);
+        marketCost = marketCost * 1.5f;
+        marketCost = Mathf.Round(marketCost * 100f) / 100f;
+        StoreValue("marketCost", marketCost);
+        UpdateUI();
+    }
+
+    public void AddFactory()
+    {
+        if(balance < factoryCost)
+        {
+            return;
+        }
+        ChangeFactoryCount(1);
+        ChangeBalance(-factoryCost);
+        ChangeSnakeMultiplier(20);
+        factoryCost = factoryCost * 1.5f;
+        factoryCost = Mathf.Round(factoryCost * 100f) / 100f;
+        StoreValue("factoryCost", factoryCost);
+        UpdateUI();
+    }
+
     private void AddSecondaryBalance()
     {
         int secondaryBalance = 0;
         secondaryBalance += numBuckets * bucketValue;
         secondaryBalance += numTrees * treeValue;
+        secondaryBalance += numMarkets * marketValue;
+        secondaryBalance += numFactories * factoryValue;
         ChangeBalance(secondaryBalance);
     }
 
