@@ -7,6 +7,12 @@ public class Fruit : MonoBehaviour
     [SerializeField] GameObject fruit;
     [SerializeField] Scoring score;
     [SerializeField] int maxScore;
+    private AudioSource biteSound;
+
+    private void Start()
+    {
+        biteSound = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -16,6 +22,7 @@ public class Fruit : MonoBehaviour
             score.UpdateScore(1, maxScore);
             other.transform.parent.GetComponent<SnakeManager>().AddBodyParts();
             CreateRandomFruit();
+            biteSound.Play();
             Destroy(gameObject);
         }
     }
