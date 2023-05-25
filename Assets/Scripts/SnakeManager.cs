@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SnakeManager : MonoBehaviour
 {
@@ -146,7 +147,7 @@ public class SnakeManager : MonoBehaviour
 
     public IEnumerator ExitGameAsLoss(float delay)
     {
-        SnakeManager.Instance.GetComponent<SnakeManager>().SetSpeed(0);
+        SetSpeed(0);
         Camera.main.transform.GetChild(0).GetComponent<WinLoseAudioManager>().PlayLoseSound();
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(0);
