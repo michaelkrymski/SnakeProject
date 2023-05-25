@@ -102,7 +102,7 @@ public class TycoonManager : MonoBehaviour
     public void UpdateUI()
     {
         BalanceText.text = "Balance: " + balance;
-        AppleTree.text = "Apple Trees: " + numTrees;
+        AppleTreeText.text = "Apple Trees: " + numTrees;
         AppleTreeCost.text = "Cost: " + treeCost;
         BucketText.text = "Buckets: " + numBuckets;
         BucketCost.text = "Cost: " + bucketCost;
