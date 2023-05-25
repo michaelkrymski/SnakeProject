@@ -101,7 +101,7 @@ public class TycoonManager : MonoBehaviour
     {
         BalanceText.text = "Balance: " + balance;
         AppleTree.text = "Apple Trees: " + numTrees;
-        //BucketText.text = "Buckets: " + numBuckets;
+        BucketText.text = "Buckets: " + numBuckets;
     }
 
     public void AddBucket()
@@ -114,6 +114,7 @@ public class TycoonManager : MonoBehaviour
         ChangeBalance(-bucketCost);
         ChangeSnakeMultiplier(2);
         bucketCost = bucketCost * 1.5f;
+        bucketCost = Mathf.Round(bucketCost * 100f) / 100f;
         StoreValue("bucketCost", bucketCost);
         UpdateUI();
     }
@@ -128,6 +129,7 @@ public class TycoonManager : MonoBehaviour
         ChangeBalance(-treeCost);
         ChangeSnakeMultiplier(5);
         treeCost = treeCost * 1.5f;
+        treeCost = Mathf.Round(treeCost * 100f) / 100f;
         StoreValue("treeCost", treeCost);
         UpdateUI();
     }
