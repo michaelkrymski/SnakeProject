@@ -11,6 +11,18 @@ public class SnakeManager : MonoBehaviour
     [SerializeField] GameObject segment;
     [SerializeField] AudioSource biteSound;
     List<GameObject> snakeBody = new List<GameObject>();
+
+    public static SnakeManager Instance {get; private set;}
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+    }
     
     float countUp = 0;
     void Start()
@@ -116,6 +128,12 @@ public class SnakeManager : MonoBehaviour
             countUp = 0;
         }
     }
+
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+
     public void AddBodyParts()
     {
         bodyParts.Add(segment);
@@ -124,5 +142,13 @@ public class SnakeManager : MonoBehaviour
     public void PlayBiteSound()
     {
         biteSound.Play();
+    }
+
+    public IEnumerator ExitGameAsLoss(float delay)
+    {
+        SnakeManager.Instance.GetComponent<SnakeManager>().SetSpeed(0);
+        Camera.main.transform.GetChild(0).GetComponent<WinLoseAudioManager>().PlayLoseSound();
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(0);
     }
 }

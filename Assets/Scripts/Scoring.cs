@@ -33,7 +33,7 @@ public class Scoring : MonoBehaviour
         {
             if(canExit)
             {
-                ExitGame();
+                StartCoroutine(ExitGame(2f));
             }
         }
     }
@@ -55,8 +55,11 @@ public class Scoring : MonoBehaviour
         }
     }
 
-    private void ExitGame()
+    private IEnumerator ExitGame(float delay)
     {
+        SnakeManager.Instance.GetComponent<SnakeManager>().SetSpeed(0);
+        Camera.main.transform.GetChild(0).GetComponent<WinLoseAudioManager>().PlayWinSound();
+        yield return new WaitForSeconds(delay);
         PlayerPrefs.SetFloat("balance", currentScore + PlayerPrefs.GetFloat("balance"));
         SceneManager.LoadScene(0);
     }

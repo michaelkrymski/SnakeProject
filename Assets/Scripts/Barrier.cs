@@ -7,6 +7,9 @@ public class Barrier : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        SceneManager.LoadScene(0);
+        if(other.tag = "Player")
+        {
+            StartCoroutine(other.GetComponent<SnakeManager>().ExitGameAsLoss(), 3f);
+        }
     }
 }

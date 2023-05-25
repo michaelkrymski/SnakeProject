@@ -19,12 +19,9 @@ public class Segments : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        
         if(other.tag == "Player")
         {
-            
-            SceneManager.LoadScene(0); 
-
+            StartCoroutine(other.GetComponent<SnakeManager>().ExitGameAsLoss(), 3f);
         }  
     }
 }
