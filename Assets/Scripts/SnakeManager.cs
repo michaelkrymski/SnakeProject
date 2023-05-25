@@ -9,12 +9,14 @@ public class SnakeManager : MonoBehaviour
     [SerializeField] float turnSpeed = 180;
     [SerializeField] List<GameObject> bodyParts = new List<GameObject>();
     [SerializeField] GameObject segment;
+    [SerializeField] AudioSource biteSound;
     List<GameObject> snakeBody = new List<GameObject>();
     
     float countUp = 0;
     void Start()
     {
         CreateBodyParts();
+        biteSound = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -117,5 +119,10 @@ public class SnakeManager : MonoBehaviour
     public void AddBodyParts()
     {
         bodyParts.Add(segment);
+    }
+
+    public void PlayBiteSound()
+    {
+        biteSound.Play();
     }
 }
