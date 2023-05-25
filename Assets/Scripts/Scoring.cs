@@ -8,7 +8,9 @@ public class Scoring : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI boostInfo;
+    [SerializeField] GameObject exitInfo;
     private int currentScore;
+    private bool canExit = false;
     void Start()
     {
         currentScore = 0;
@@ -24,6 +26,17 @@ public class Scoring : MonoBehaviour
         }
 
     }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            if(canExit)
+            {
+                ExitGame();
+            }
+        }
+    }
     // Start is called before the first frame update
     public void UpdateScore(int value, int maxScore)
     {
@@ -35,11 +48,18 @@ public class Scoring : MonoBehaviour
         currentScore += value;
         scoreText.text = "Score: " + currentScore;
 
-        if(currentScore == (maxScore))
+        if(currentScore >= (maxScore))
         {
-            PlayerPrefs.SetFloat("balance", currentScore + PlayerPrefs.GetFloat("balance"));
-            SceneManager.LoadScene(0);
+            canExit = true;
+            exitInfo.SetActive(true);
+            ExitGame();
         }
+    }
+
+    private void ExitGame()
+    {
+        PlayerPrefs.SetFloat("balance", currentScore + PlayerPrefs.GetFloat("balance"));
+        SceneManager.LoadScene(0);
     }
 
     public IEnumerator Delay(float time)
