@@ -10,9 +10,11 @@ public class TycoonManager : MonoBehaviour
     private int snakeMultiplier = 1;
 
     private float balance;
-    [SerializeField] TextMeshProUGUI AppleTree;
-    [SerializeField] private TextMeshProUGUI BalanceText;
-    [SerializeField] private TextMeshProUGUI BucketText;
+    [SerializeField] TextMeshProUGUI BalanceText;
+    [SerializeField] TextMeshProUGUI BucketText;
+    [SerializeField] TextMeshProUGUI BucketCost;
+    [SerializeField] TextMeshProUGUI AppleTreeText;
+    [SerializeField] TextMeshProUGUI AppleTreeCost;
 
     private int numBuckets;
     [SerializeField] int bucketValue = 1;
@@ -101,7 +103,9 @@ public class TycoonManager : MonoBehaviour
     {
         BalanceText.text = "Balance: " + balance;
         AppleTree.text = "Apple Trees: " + numTrees;
+        AppleTreeCost.text = "Cost: " + treeCost;
         BucketText.text = "Buckets: " + numBuckets;
+        BucketCost.text = "Cost: " + bucketCost;
     }
 
     public void AddBucket()
