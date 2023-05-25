@@ -12,6 +12,7 @@ public class TycoonManager : MonoBehaviour
     private float balance;
     [SerializeField] TextMeshProUGUI AppleTree;
     [SerializeField] private TextMeshProUGUI BalanceText;
+    [SerializeField] private TextMeshProUGUI BucketText;
 
     private int numBuckets;
     [SerializeField] int bucketValue = 1;
@@ -21,15 +22,14 @@ public class TycoonManager : MonoBehaviour
     [SerializeField] int treeValue = 3;
     [SerializeField] float treeCost = 100;
 
-    // Start is called before the first frame update
     void Start()
     {
         firstTime = PlayerPrefs.GetInt("firstTime", 1);
         if(firstTime == 1)
         {
             PlayerPrefs.SetInt("firstTime", 0);
-            PlayerPrefs.SetFloat("multiplier", 1);
             PlayerPrefs.SetFloat("balance", 0);
+            PlayerPrefs.SetFloat("multiplier", 1);
             PlayerPrefs.SetInt("numBuckets", 0);
             PlayerPrefs.SetFloat("bucketCost", 10);
             PlayerPrefs.SetInt("numTrees", 0);
@@ -38,20 +38,15 @@ public class TycoonManager : MonoBehaviour
         else
         {
             balance = RetrieveValue("balance");
-            numTrees = (int)RetrieveValue("numTrees");
             snakeMultiplier = (int)RetrieveValue("multiplier");
-            treeCost = (int)RetrieveValue("treeCost");
+            numBuckets = (int)RetrieveValue("numBuckets");
+            bucketCost = (int)RetrieveValue("bucketCost");
+            numTrees = (int)RetrieveValue("numTrees");
+            treeCost = RetrieveValue("treeCost");
             StartCoroutine(AddSecondaryBalanceRoutine());
             UpdateUI();
             Debug.Log((int)RetrieveValue("treeCost"));
         }
-        Debug.Log(PlayerPrefs.GetFloat("treeCost"));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public float GetBalance()
@@ -88,6 +83,13 @@ public class TycoonManager : MonoBehaviour
         StoreValue("multiplier", snakeMultiplier);
     }
 
+    public void ChangeBucketCount(int amount)
+    {
+        numBuckets += amount;
+        UpdateUI();
+        StoreValue("numBuckets", numBuckets);
+    }
+
     public void ChangeTreeCount(int amount)
     {
         numTrees += amount;
@@ -99,6 +101,7 @@ public class TycoonManager : MonoBehaviour
     {
         BalanceText.text = "Balance: " + balance;
         AppleTree.text = "Apple Trees: " + numTrees;
+        //BucketText.text = "Buckets: " + numBuckets;
     }
 
     public void AddBucket()
@@ -107,11 +110,12 @@ public class TycoonManager : MonoBehaviour
         {
             return;
         }
+        ChangeBucketCount(1);
         ChangeBalance(-bucketCost);
-        ChangeSnakeMultiplier(1);
+        ChangeSnakeMultiplier(2);
         bucketCost = bucketCost * 1.5f;
         StoreValue("bucketCost", bucketCost);
-        //
+        UpdateUI();
     }
 
     public void AddTree()
@@ -122,7 +126,7 @@ public class TycoonManager : MonoBehaviour
         }
         ChangeTreeCount(1);
         ChangeBalance(-treeCost);
-        ChangeSnakeMultiplier(2);
+        ChangeSnakeMultiplier(5);
         treeCost = treeCost * 1.5f;
         StoreValue("treeCost", treeCost);
         UpdateUI();
@@ -131,6 +135,7 @@ public class TycoonManager : MonoBehaviour
     private void AddSecondaryBalance()
     {
         int secondaryBalance = 0;
+        secondaryBalance += numBuckets * bucketValue;
         secondaryBalance += numTrees * treeValue;
         ChangeBalance(secondaryBalance);
     }
