@@ -128,16 +128,6 @@ public class TycoonManager : MonoBehaviour
         UpdateUI();
     }
 
-    public void AddBucket()
-    {
-        if(balance < 100)
-        {
-            return;
-        }
-        ChangeBalance(-100);
-        ChangeSnakeMultiplier(1);
-    }
-
     private void AddSecondaryBalance()
     {
         int secondaryBalance = 0;
