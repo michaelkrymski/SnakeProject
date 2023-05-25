@@ -93,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fruit: {fileID: 0}
   score: {fileID: 0}
-  maxScore: 5
+  maxScore: 20
 --- !u!1001 &1124950038992768221
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class TycoonManager : MonoBehaviour
 {
     private int firstTime;
 
-    private int snakeMultiplier;
+    private int snakeMultiplier = 1;
 
     private float balance;
     [SerializeField] TextMeshProUGUI AppleTree;
@@ -24,19 +24,22 @@ public class TycoonManager : MonoBehaviour
         if(firstTime == 1)
         {
             PlayerPrefs.SetInt("firstTime", 0);
-            PlayerPrefs.SetInt("multiplier", 1);
+            PlayerPrefs.SetFloat("multiplier", 1);
             PlayerPrefs.SetFloat("balance", 0);
             PlayerPrefs.SetInt("numTrees", 0);
+            PlayerPrefs.SetFloat("treeCost", 10);
         }
         else
         {
             balance = RetrieveValue("balance");
             numTrees = (int)RetrieveValue("numTrees");
-            snakeMultiplier = (int)RetrieveValue("numTrees");
+            snakeMultiplier = (int)RetrieveValue("multiplier");
+            treeCost = (int)RetrieveValue("treeCost");
             StartCoroutine(AddSecondaryBalanceRoutine());
             UpdateUI();
+            Debug.Log((int)RetrieveValue("treeCost"));
         }
-        Debug.Log(snakeMultiplier);
+        Debug.Log(PlayerPrefs.GetFloat("treeCost"));
     }
 
     // Update is called once per frame
@@ -100,7 +103,9 @@ public class TycoonManager : MonoBehaviour
         }
         ChangeTreeCount(1);
         ChangeBalance(-treeCost);
+        ChangeSnakeMultiplier(2);
         treeCost = treeCost * 1.5f;
+        StoreValue("treeCost", treeCost);
         //AppleTree.text = "Apple Trees: " + numTrees;
     }
 
