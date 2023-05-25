@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppleTree: {fileID: 325094298}
   BalanceText: {fileID: 803347470}
-  BucketText: {fileID: 0}
+  BucketText: {fileID: 1143253568}
   bucketValue: 1
   bucketCost: 10
   treeValue: 1
@@ -997,7 +997,7 @@ GameObject:
   - component: {fileID: 870808321}
   - component: {fileID: 870808320}
   m_Layer: 5
-  m_Name: Number of Apple Trees
+  m_Name: Cost of Apple Trees
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1043,7 +1043,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Number of Apple Trees: 0'
+  m_text: 'Next Apple Tree Cost: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1640,7 +1640,7 @@ GameObject:
   - component: {fileID: 1261834322}
   - component: {fileID: 1261834321}
   m_Layer: 5
-  m_Name: Number of Apple Buckets (1)
+  m_Name: Cost of next Apple Buckets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
