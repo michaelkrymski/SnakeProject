@@ -52,7 +52,6 @@ public class Scoring : MonoBehaviour
         {
             canExit = true;
             exitInfo.SetActive(true);
-            ExitGame();
         }
     }
 
