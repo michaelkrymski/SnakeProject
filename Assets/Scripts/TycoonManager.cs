@@ -13,9 +13,13 @@ public class TycoonManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI AppleTree;
     [SerializeField] private TextMeshProUGUI BalanceText;
 
+    private int numBuckets;
+    [SerializeField] int bucketValue = 1;
+    [SerializeField] float bucketCost = 10;
+
     private int numTrees;
-    [SerializeField] int treeValue = 1;
-    [SerializeField] float treeCost = 10;
+    [SerializeField] int treeValue = 3;
+    [SerializeField] float treeCost = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -26,8 +30,10 @@ public class TycoonManager : MonoBehaviour
             PlayerPrefs.SetInt("firstTime", 0);
             PlayerPrefs.SetFloat("multiplier", 1);
             PlayerPrefs.SetFloat("balance", 0);
+            PlayerPrefs.SetInt("numBuckets", 0);
+            PlayerPrefs.SetFloat("bucketCost", 10);
             PlayerPrefs.SetInt("numTrees", 0);
-            PlayerPrefs.SetFloat("treeCost", 10);
+            PlayerPrefs.SetFloat("treeCost", 100);
         }
         else
         {
@@ -92,7 +98,20 @@ public class TycoonManager : MonoBehaviour
     public void UpdateUI()
     {
         BalanceText.text = "Balance: " + balance;
-        //AppleTree.text = "Apple Trees: " + numTrees;
+        AppleTree.text = "Apple Trees: " + numTrees;
+    }
+
+    public void AddBucket()
+    {
+        if(balance < bucketCost)
+        {
+            return;
+        }
+        ChangeBalance(-bucketCost);
+        ChangeSnakeMultiplier(1);
+        bucketCost = bucketCost * 1.5f;
+        StoreValue("bucketCost", bucketCost);
+        //
     }
 
     public void AddTree()
@@ -106,7 +125,17 @@ public class TycoonManager : MonoBehaviour
         ChangeSnakeMultiplier(2);
         treeCost = treeCost * 1.5f;
         StoreValue("treeCost", treeCost);
-        //AppleTree.text = "Apple Trees: " + numTrees;
+        UpdateUI();
+    }
+
+    public void AddBucket()
+    {
+        if(balance < 100)
+        {
+            return;
+        }
+        ChangeBalance(-100);
+        ChangeSnakeMultiplier(1);
     }
 
     private void AddSecondaryBalance()
