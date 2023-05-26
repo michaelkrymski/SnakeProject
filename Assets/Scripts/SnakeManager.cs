@@ -152,4 +152,9 @@ public class SnakeManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(0);
     }
+
+    public int GetSnakeLength()
+    {
+        return snakeBody.Count;
+    }
 }

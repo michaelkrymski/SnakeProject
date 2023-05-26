@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Scoring : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI multiplierText;
     [SerializeField] TextMeshProUGUI boostInfo;
     [SerializeField] GameObject exitInfo;
     private int currentScore;
@@ -24,6 +25,7 @@ public class Scoring : MonoBehaviour
         {
             boostInfo.color = new Color(boostInfo.color.r, boostInfo.color.g, boostInfo.color.b, 0);
         }
+        multiplierText.text = "Multiplier: " + PlayerPrefs.GetFloat("multiplier", 1);
 
     }
 
@@ -33,7 +35,8 @@ public class Scoring : MonoBehaviour
         {
             if(canExit)
             {
-                StartCoroutine(ExitGame(2f));
+                float delay = SnakeManager.Instance.GetComponent<SnakeManager>().GetSnakeLength() / 2f;
+                StartCoroutine(ExitGame(delay));
             }
         }
     }
