@@ -56,6 +56,7 @@ public class TycoonManager : MonoBehaviour
             PlayerPrefs.SetFloat("marketCost", marketCost);
             PlayerPrefs.SetInt("numFactories", 0);
             PlayerPrefs.SetFloat("factoryCost", factoryCost);
+            PlayerPrefs.Save();
             UpdateUI();
         }
         else
@@ -88,6 +89,7 @@ public class TycoonManager : MonoBehaviour
     public void StoreValue(string storageKey, float value)
     {
         PlayerPrefs.SetFloat(storageKey, value);
+        PlayerPrefs.Save();
     }
 
     public void SetBalance(float newBalance)

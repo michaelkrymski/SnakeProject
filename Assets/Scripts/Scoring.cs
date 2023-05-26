@@ -20,6 +20,7 @@ public class Scoring : MonoBehaviour
             boostInfo.color = new Color(boostInfo.color.r, boostInfo.color.g, boostInfo.color.b, 1);
             StartCoroutine(Delay(3f));
             PlayerPrefs.SetInt("dashTutorialRequired", 0);
+            PlayerPrefs.Save();
         }
         else
         {
@@ -62,8 +63,9 @@ public class Scoring : MonoBehaviour
     {
         SnakeManager.Instance.GetComponent<SnakeManager>().SetSpeed(0);
         Camera.main.transform.GetChild(0).GetComponent<WinLoseAudioManager>().PlayWinSound();
-        yield return new WaitForSeconds(delay);
         PlayerPrefs.SetFloat("balance", currentScore + PlayerPrefs.GetFloat("balance"));
+        PlayerPrefs.Save();
+        yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(0);
     }
 
